@@ -1,8 +1,12 @@
 import Header from "./components/Header";
+import FileInput from "./components/FileInput";
 
 const App = () => {
   return (
-    <Header />
+    <>
+      <Header />
+      <FileInput />
+    </>
   );
 }
 
