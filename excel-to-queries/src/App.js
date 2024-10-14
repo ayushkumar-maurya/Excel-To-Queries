@@ -1,11 +1,13 @@
 import Header from "./components/Header";
-import FileInput from "./components/FileInput";
+import Content from "./components/Content";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
     <>
       <Header />
-      <FileInput />
+      <Content />
+      <Footer />
     </>
   );
 }
