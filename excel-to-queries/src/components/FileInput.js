@@ -1,5 +1,5 @@
 import fileInputStyles from '../styles/FileInput';
-import '../css/FileInput.css';
+import '../css/fileInput.css';
 
 const FileInput = () => {
   return (
@@ -22,6 +22,11 @@ const FileInput = () => {
       </div>
 
       <button type="button" className="btn btn-secondary">Convert</button>
+
+      <div className="alert alert-light" role="alert" style={fileInputStyles.note}>
+        Name of each sheet must be same as that of table.<br />
+        Similarly, name of the table columns should be mentioned in the first row of each sheet.
+      </div>
     </div>
   );
 }
