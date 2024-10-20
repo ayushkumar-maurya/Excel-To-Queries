@@ -1,10 +1,10 @@
 import contentStyles from "../styles/Content";
-import FileInput from "./FileInput"
+import DataConversion from "./DataConversion"
 
 const Content = () => {
   return (
       <div style={contentStyles.main}>
-        <FileInput />
+        <DataConversion />
       </div>
   );
 }

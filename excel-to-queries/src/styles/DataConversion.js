@@ -1,4 +1,4 @@
-const fileInputStyles = {
+const dataConversionStyles = {
   main: {
     padding: '20px'
   },
@@ -14,4 +14,4 @@ const fileInputStyles = {
   }
 }
 
-export default fileInputStyles;
+export default dataConversionStyles;
