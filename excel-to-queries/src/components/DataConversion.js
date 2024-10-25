@@ -8,6 +8,7 @@ const DataConversion = () => {
   const fileInput = useRef(null);
   const fileName = useRef('');
 
+  // Reading File.
   const readFile = () => {
     setProgressValue(0);
   
@@ -23,18 +24,38 @@ const DataConversion = () => {
         const arrayBuffer = e.target.result;
         const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
 
-        let excelData = workbook.SheetNames.map(sheetName => {
+        let dbRecords = workbook.SheetNames.map(sheetName => {
           let sheet = workbook.Sheets[sheetName];
           let sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-          return { sheetName, sheetData };
+
+          return processData(sheetName, sheetData);
         });
 
-        console.log(excelData);
+        console.log(dbRecords);
       };
 
       reader.readAsArrayBuffer(file);
     }
   }
+
+  // Processing Records.
+  const processData = (sheetName, sheetData) => {
+    let columnNames, records;
+
+    if(sheetData.length > 0) {
+      columnNames =  sheetData[0].map(columnName => columnName.toLowerCase());
+      records = sheetData.slice(1).map(record => {
+        return record.map(value => typeof value === 'string' ? value.replace("'", "''") : value)
+      })
+    };
+
+    return {
+      tableName: sheetName.toLowerCase(),
+      columnNames: columnNames,
+      records: records
+    }
+  }
+
 
   return (
     <div style={dataConversionStyles.main} className='main'>
