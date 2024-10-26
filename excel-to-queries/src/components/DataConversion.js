@@ -11,9 +11,9 @@ const DataConversion = () => {
   // Reading File.
   const readFile = () => {
     setProgressValue(0);
-  
     const file = fileInput.current.files[0];
-    if (file) {      
+  
+    if (file) {
       let fileNameWithExt = file.name;
       let extLoc = fileNameWithExt.lastIndexOf('.');
       fileName.current = fileNameWithExt.substring(0, extLoc !== -1 ? extLoc : fileNameWithExt.length);
@@ -24,14 +24,15 @@ const DataConversion = () => {
         const arrayBuffer = e.target.result;
         const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
 
-        let dbRecords = workbook.SheetNames.map(sheetName => {
+        let dbTables = workbook.SheetNames.map(sheetName => {
           let sheet = workbook.Sheets[sheetName];
           let sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
           return processData(sheetName, sheetData);
         });
 
-        console.log(dbRecords);
+        const queries = getQueries(dbTables);
+        console.log(queries);
       };
 
       reader.readAsArrayBuffer(file);
@@ -56,6 +57,30 @@ const DataConversion = () => {
     }
   }
 
+  // Converting Records to SQL Queries.
+  const getQueries = tables => {
+    let queries = '';
+
+    for (let table of tables) {
+      queries += `-- ${table.tableName.toUpperCase()}\n`;
+
+      for (let record of table.records) {
+        let numOfCols = table.columnNames.length;
+
+        if (numOfCols > 0) {
+          queries += `INSERT INTO ${table.tableName} (${table.columnNames[0]}`
+          for (let i = 1; i < numOfCols; i++)
+            queries += `, ${table.columnNames[i]}`
+          queries += `)\nVALUES ('${record[0]}'`
+          for (let i = 1; i < numOfCols; i++)
+            queries += `, '${record[i]}'`
+          queries += ');\n'
+        }
+      }
+      queries += '\n\n';
+    }
+    return queries;
+  };
 
   return (
     <div style={dataConversionStyles.main} className='main'>
