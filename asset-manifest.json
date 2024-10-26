@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Excel-To-Queries/static/css/main.e5071d8e.css",
+    "main.js": "/Excel-To-Queries/static/js/main.9f744abf.js",
+    "index.html": "/Excel-To-Queries/index.html",
+    "main.e5071d8e.css.map": "/Excel-To-Queries/static/css/main.e5071d8e.css.map",
+    "main.9f744abf.js.map": "/Excel-To-Queries/static/js/main.9f744abf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e5071d8e.css",
+    "static/js/main.9f744abf.js"
+  ]
+}
