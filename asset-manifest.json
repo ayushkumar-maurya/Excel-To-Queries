@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Excel-To-Queries/static/css/main.e5071d8e.css",
-    "main.js": "/Excel-To-Queries/static/js/main.9f744abf.js",
+    "main.js": "/Excel-To-Queries/static/js/main.2e25b6ba.js",
     "index.html": "/Excel-To-Queries/index.html",
     "main.e5071d8e.css.map": "/Excel-To-Queries/static/css/main.e5071d8e.css.map",
-    "main.9f744abf.js.map": "/Excel-To-Queries/static/js/main.9f744abf.js.map"
+    "main.2e25b6ba.js.map": "/Excel-To-Queries/static/js/main.2e25b6ba.js.map"
   },
   "entrypoints": [
     "static/css/main.e5071d8e.css",
-    "static/js/main.9f744abf.js"
+    "static/js/main.2e25b6ba.js"
   ]
 }
