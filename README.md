@@ -1,5 +1,5 @@
 # Excel-To-Queries
-Convert records in Excel workbook to SQL Insert queries.  
+[Click here](https://ayushkumar-maurya.github.io/Excel-To-Queries) to convert records in Excel workbook to SQL Insert queries.  
 
 This project aims to make it easier for users to convert records present in Excel sheets into SQL insert queries, which will help in importing data into database tables easily.
 
@@ -20,3 +20,8 @@ This project aims to make it easier for users to convert records present in Exce
 	```
 
 4. Browse <http://localhost:3000>.
+
+### Deploy to GitHub Pages:
+```
+npm run deploy
+```
