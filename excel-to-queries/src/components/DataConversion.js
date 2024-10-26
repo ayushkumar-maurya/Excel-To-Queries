@@ -8,11 +8,9 @@ const DataConversion = () => {
   const fileInput = useRef(null);
   const fileName = useRef('');
 
-  // Reading File.
-  const readFile = () => {
-    setProgressValue(0);
+  const convertData = () => {
     const file = fileInput.current.files[0];
-  
+
     if (file) {
       let fileNameWithExt = file.name;
       let extLoc = fileNameWithExt.lastIndexOf('.');
@@ -23,6 +21,7 @@ const DataConversion = () => {
       reader.onload = e => {
         const arrayBuffer = e.target.result;
         const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+        setProgressValue(25);
 
         let dbTables = workbook.SheetNames.map(sheetName => {
           let sheet = workbook.Sheets[sheetName];
@@ -30,9 +29,13 @@ const DataConversion = () => {
 
           return processData(sheetName, sheetData);
         });
+        setProgressValue(50);
 
         const queries = getQueries(dbTables);
+        setProgressValue(75);
+
         downloadSqlFile(queries);
+        setProgressValue(100);
       };
 
       reader.readAsArrayBuffer(file);
@@ -44,7 +47,7 @@ const DataConversion = () => {
     let columnNames, records;
 
     if(sheetData.length > 0) {
-      columnNames =  sheetData[0].map(columnName => columnName.toLowerCase());
+      columnNames = sheetData[0].map(columnName => columnName.toLowerCase());
       records = sheetData.slice(1).map(record => {
         return record.map(value => typeof value === 'string' ? value.replace("'", "''") : value)
       })
@@ -101,7 +104,7 @@ const DataConversion = () => {
     <div style={dataConversionStyles.main} className='main'>
       <div className="mb-0">
         <label htmlFor="file" className="form-label">Select Excel File</label>
-        <input className="form-control" type="file" ref={fileInput} id="file" />
+        <input className="form-control" type="file" ref={fileInput} onChange={() => setProgressValue(0)} id="file" />
       </div>
 
       <div
@@ -117,7 +120,7 @@ const DataConversion = () => {
           className="progress-bar bg-success" style={{width: progressValue + '%'}}>{progressValue + '%'}</div>
       </div>
 
-      <button type="button" className="btn btn-secondary" onClick={readFile}>Convert</button>
+      <button type="button" className="btn btn-secondary" onClick={convertData}>Convert</button>
 
       <div className="alert alert-light" role="alert" style={dataConversionStyles.note}>
         Name of each sheet must be same as that of table.<br />
