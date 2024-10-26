@@ -32,7 +32,7 @@ const DataConversion = () => {
         });
 
         const queries = getQueries(dbTables);
-        console.log(queries);
+        downloadSqlFile(queries);
       };
 
       reader.readAsArrayBuffer(file);
@@ -81,6 +81,21 @@ const DataConversion = () => {
     }
     return queries;
   };
+
+  // Downloading SQL File.
+  const downloadSqlFile = queries => {
+    const blob = new Blob([queries], { type: 'application/sql' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.download = fileName.current + '.sql';
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  }
 
   return (
     <div style={dataConversionStyles.main} className='main'>
